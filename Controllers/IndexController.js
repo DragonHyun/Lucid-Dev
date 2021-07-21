@@ -6,6 +6,8 @@ const IndexController = {
       message: "성공하였습니다",
     });
   },
+
+  
 };
 
 module.exports = IndexController;
