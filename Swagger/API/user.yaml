@@ -1,0 +1,16 @@
+ tags:
+    name: Users
+    description: API to manage usres.
+ 
+ paths:
+  /user:
+    get:
+      summary: all user
+      tags: [Users]
+      responses:
+        "200":
+          description: The list of usersssssssss
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'

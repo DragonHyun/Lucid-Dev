@@ -6,6 +6,27 @@ const logger = require("morgan");
 
 const routes = require("./Routes");
 
+const { swaggerUi, specs } = require("./Swagger");
+
+// const swaggerJsdoc = require("swagger-jsdoc");
+// const swaggerUi = require("swagger-ui-express");
+
+// const options = {
+//   swaggerDefinition: {
+//     openapi: "3.0.0",
+//     info: {
+//       title: "Test Swagger",
+//       version: "1.0.0",
+//       description: "swagger test",
+//     },
+//     host: "localhost:8000",
+//     basePath: "/",
+//   },
+//   apis: ["./Swagger/API/*.yaml"],
+// };
+
+// const specs = swaggerJsdoc(options);
+
 const app = express();
 
 app.use(logger("dev"));
@@ -14,6 +35,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use(routes);
 
 // catch 404 and forward to error handler

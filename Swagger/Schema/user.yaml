@@ -1,0 +1,12 @@
+components:
+  schemas:
+    User:
+     properties:
+      id:
+       type: integer
+      name:
+       type: string
+       description: 이름
+      email:
+       type: string
+       description: 이메일
