@@ -8,7 +8,7 @@ const userService = {
 
       return allUser;
     } catch (exception) {
-      throw exception;
+      next(exception);
     }
   },
 

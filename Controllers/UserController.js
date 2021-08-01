@@ -1,5 +1,8 @@
 const { UserService } = require("../Services/MySQL");
 
+const CustomError = require("../Util/custom-error");
+const { isPropertyDefined } = require("../Util/function");
+
 const UserController = {
   allUser: async (req, res, next) => {
     try {
@@ -15,32 +18,16 @@ const UserController = {
   },
 
   createUser: async (req, res, next) => {
-    try {
-      const {
-        account_id,
-        password,
-        name,
-        age,
-        sex,
-        email,
-        nickname,
-        profile_image_url,
-      } = req.body;
+    const { email, password, name, age, sex, nickname } = req.body;
 
-      await UserService.signUp(
-        account_id,
-        password,
-        name,
-        age,
-        sex,
-        email,
-        nickname,
-        profile_image_url
-      );
+    try {
+      if (!(await isPropertyDefined(email, password, name, age, sex, nickname)))
+        throw new CustomError(401, "필수 요소가 존재하지 않습니다.");
+      //await UserService.signUp(email, password, name, age, sex, nickname);
       res.status(200).json({
         isSuccess: true,
         code: 200,
-        message: "회원가입 성공",
+        message: "회원가입 성공1",
       });
     } catch (err) {
       next(err);
