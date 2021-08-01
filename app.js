@@ -8,25 +8,6 @@ const routes = require("./Routes");
 
 const { swaggerUi, specs } = require("./Swagger");
 
-// const swaggerJsdoc = require("swagger-jsdoc");
-// const swaggerUi = require("swagger-ui-express");
-
-// const options = {
-//   swaggerDefinition: {
-//     openapi: "3.0.0",
-//     info: {
-//       title: "Test Swagger",
-//       version: "1.0.0",
-//       description: "swagger test",
-//     },
-//     host: "localhost:8000",
-//     basePath: "/",
-//   },
-//   apis: ["./Swagger/API/*.yaml"],
-// };
-
-// const specs = swaggerJsdoc(options);
-
 const app = express();
 
 app.use(logger("dev"));
