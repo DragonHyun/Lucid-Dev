@@ -5,10 +5,10 @@ const userService = {
   allUser: async () => {
     try {
       const allUser = await User.findAll();
-
+      console.log(allUser);
       return allUser;
-    } catch (exception) {
-      next(exception);
+    } catch (err) {
+      throw err;
     }
   },
 

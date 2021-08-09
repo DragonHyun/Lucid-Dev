@@ -20,10 +20,9 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         comment: "비밀번호",
       },
-      name: {
+      nickname: {
         type: DataTypes.STRING(45),
         allowNull: false,
-        comment: "이름",
       },
       age: {
         type: DataTypes.INTEGER,
@@ -34,11 +33,6 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.ENUM("M", "W", "U"),
         allowNull: false,
         comment: "성별",
-      },
-      nickname: {
-        type: DataTypes.STRING(45),
-        allowNull: false,
-        comment: "닉네임",
       },
       profile_image_url: {
         type: DataTypes.TEXT,

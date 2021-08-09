@@ -1,6 +1,7 @@
 const CustomError = require("../Util/custom-error");
 
 module.exports = (err, req, res, next) => {
+  console.log(err);
   const errObj = {
     req: {
       headers: req.headers,

@@ -4,10 +4,11 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const { swaggerUi, specs } = require("./Swagger");
+
+require("dotenv").config();
 
 const routes = require("./Routes");
-
-const { swaggerUi, specs } = require("./Swagger");
 
 const app = express();
 
