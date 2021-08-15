@@ -1,31 +1,37 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('dreamsign', {
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      comment: "꿈표식인덱스"
-    },
-    dreamsign: {
-      type: DataTypes.STRING(45),
-      allowNull: false,
-      comment: "꿈표식"
+"use strict";
+const { Model } = require("sequelize");
+module.exports = (sequelize, DataTypes) => {
+  class dreamsign extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
     }
-  }, {
-    sequelize,
-    tableName: 'dreamsign',
-    timestamps: false,
-    indexes: [
-      {
-        name: "PRIMARY",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "id" },
-        ]
+  }
+  dreamsign.init(
+    {
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        comment: "꿈표식인덱스",
       },
-    ]
-  });
+      dreamsign: {
+        type: DataTypes.STRING(45),
+        allowNull: false,
+        comment: "꿈표식",
+      },
+    },
+    {
+      sequelize,
+      modelName: "dreamsign",
+      tableName: "dreamsign",
+      timestamps: false,
+    }
+  );
+  return dreamsign;
 };

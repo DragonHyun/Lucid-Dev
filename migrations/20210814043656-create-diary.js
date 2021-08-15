@@ -1,27 +1,16 @@
 "use strict";
-const { Model } = require("sequelize");
-module.exports = (sequelize, DataTypes) => {
-  class diary extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  }
-  diary.init(
-    {
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable("diary", {
       id: {
         autoIncrement: true,
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
         comment: "일기인덱스",
       },
       user_id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         comment: "유저인덱스",
         references: {
@@ -30,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       sleep_id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         comment: "수면인덱스",
         references: {
@@ -39,53 +28,49 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       title: {
-        type: DataTypes.TEXT,
+        type: Sequelize.TEXT,
         allowNull: false,
         comment: "제목",
       },
       content: {
-        type: DataTypes.TEXT,
+        type: Sequelize.TEXT,
         allowNull: false,
         comment: "내용",
       },
       is_lucid: {
-        type: DataTypes.TINYINT,
+        type: Sequelize.TINYINT,
         allowNull: false,
         comment: "루시드여부",
       },
       is_bookmark: {
-        type: DataTypes.TINYINT,
+        type: Sequelize.TINYINT,
         allowNull: false,
         comment: "즐겨찾기여부",
       },
       have_image: {
-        type: DataTypes.TINYINT,
+        type: Sequelize.TINYINT,
         allowNull: false,
         comment: "이미지여부",
       },
       created_at: {
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.literal("CURRNET_TIMESTAMP"),
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         comment: "생성시점",
       },
       updated_at: {
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
         allowNull: true,
         comment: "수정시점",
       },
       deleted_at: {
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
         allowNull: true,
         comment: "삭제시점",
       },
-    },
-    {
-      sequelize,
-      modelName: "diary",
-      tableName: "diary",
-      timestamps: false,
-    }
-  );
-  return diary;
+    });
+  },
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable("diary");
+  },
 };

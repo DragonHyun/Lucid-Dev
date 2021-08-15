@@ -1,27 +1,16 @@
 "use strict";
-const { Model } = require("sequelize");
-module.exports = (sequelize, DataTypes) => {
-  class report extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  }
-  report.init(
-    {
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable("report", {
       id: {
         autoIncrement: true,
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
         comment: "신고인덱스",
       },
       report_user_id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         comment: "신고유저인덱스",
         references: {
@@ -30,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       reported_user_id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         comment: "피신고유저인덱스",
         references: {
@@ -39,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       report_reason_id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         comment: "신고사유인덱스",
         references: {
@@ -48,38 +37,34 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       content: {
-        type: DataTypes.TEXT,
+        type: Sequelize.TEXT,
         allowNull: false,
         comment: "신고내용",
       },
       is_complete: {
-        type: DataTypes.TINYINT,
+        type: Sequelize.TINYINT,
         allowNull: false,
         comment: "처리여부",
       },
       created_at: {
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         comment: "생성시점",
       },
       updated_at: {
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
         allowNull: true,
         comment: "수정시점",
       },
       deleted_at: {
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
         allowNull: true,
         comment: "삭제시점",
       },
-    },
-    {
-      sequelize,
-      modelName: "report",
-      tableName: "report",
-      timestamps: false,
-    }
-  );
-  return report;
+    });
+  },
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable("report");
+  },
 };

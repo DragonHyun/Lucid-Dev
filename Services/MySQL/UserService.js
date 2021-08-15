@@ -5,33 +5,24 @@ const userService = {
   allUser: async () => {
     try {
       const allUser = await User.findAll();
-      console.log(allUser);
+
       return allUser;
     } catch (err) {
       throw err;
     }
   },
 
-  signUp: async (
-    account_id,
-    password,
-    name,
-    age,
-    sex,
-    email,
-    nickname,
-    profile_image_url
-  ) => {
+  signUp: async (email, password, nickname, age, sex) => {
     try {
+      const defaultProfileImageUrl = "imageUrl.com";
+
       const user = await User.create({
-        account_id: account_id,
+        email: email,
         password: password,
-        name: name,
+        nickname: nickname,
         age: age,
         sex: sex,
-        email: email,
-        nickname: nickname,
-        profile_image_url: profile_image_url,
+        profile_image_url: defaultProfileImageUrl,
       });
 
       return user;

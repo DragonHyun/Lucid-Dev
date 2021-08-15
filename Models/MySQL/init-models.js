@@ -28,38 +28,69 @@ function initModels(sequelize) {
   var sleep = _sleep(sequelize, DataTypes);
   var user = _user(sequelize, DataTypes);
 
-  diary.belongsToMany(dreamsign, { as: 'dreamsign_id_dreamsigns', through: diary_tag_dreamsign, foreignKey: "diary_id", otherKey: "dreamsign_id" });
-  dreamsign.belongsToMany(diary, { as: 'diary_id_diaries', through: diary_tag_dreamsign, foreignKey: "dreamsign_id", otherKey: "diary_id" });
-  post.belongsTo(board, { as: "board", foreignKey: "board_id"});
-  board.hasMany(post, { as: "posts", foreignKey: "board_id"});
-  diary_tag_dreamsign.belongsTo(diary, { as: "diary", foreignKey: "diary_id"});
-  diary.hasMany(diary_tag_dreamsign, { as: "diary_tag_dreamsigns", foreignKey: "diary_id"});
-  diary_tag_dreamsign.belongsTo(dreamsign, { as: "dreamsign", foreignKey: "dreamsign_id"});
-  dreamsign.hasMany(diary_tag_dreamsign, { as: "diary_tag_dreamsigns", foreignKey: "dreamsign_id"});
-  bookmark.belongsTo(post, { as: "post", foreignKey: "post_id"});
-  post.hasMany(bookmark, { as: "bookmarks", foreignKey: "post_id"});
-  heart.belongsTo(post, { as: "post", foreignKey: "post_id"});
-  post.hasMany(heart, { as: "hearts", foreignKey: "post_id"});
-  post_hit.belongsTo(post, { as: "post", foreignKey: "post_id"});
-  post.hasOne(post_hit, { as: "post_hit", foreignKey: "post_id"});
-  report.belongsTo(report_reason, { as: "report_reason", foreignKey: "report_reason_id"});
-  report_reason.hasMany(report, { as: "reports", foreignKey: "report_reason_id"});
-  diary.belongsTo(sleep, { as: "sleep", foreignKey: "sleep_id"});
-  sleep.hasMany(diary, { as: "diaries", foreignKey: "sleep_id"});
-  bookmark.belongsTo(user, { as: "user", foreignKey: "user_id"});
-  user.hasMany(bookmark, { as: "bookmarks", foreignKey: "user_id"});
-  diary.belongsTo(user, { as: "user", foreignKey: "user_id"});
-  user.hasMany(diary, { as: "diaries", foreignKey: "user_id"});
-  heart.belongsTo(user, { as: "user", foreignKey: "user_id"});
-  user.hasMany(heart, { as: "hearts", foreignKey: "user_id"});
-  post.belongsTo(user, { as: "user", foreignKey: "user_id"});
-  user.hasMany(post, { as: "posts", foreignKey: "user_id"});
-  report.belongsTo(user, { as: "reported_user", foreignKey: "reported_user_id"});
-  user.hasMany(report, { as: "reports", foreignKey: "reported_user_id"});
-  report.belongsTo(user, { as: "report_user", foreignKey: "report_user_id"});
-  user.hasMany(report, { as: "report_user_reports", foreignKey: "report_user_id"});
-  sleep.belongsTo(user, { as: "user", foreignKey: "user_id"});
-  user.hasMany(sleep, { as: "sleeps", foreignKey: "user_id"});
+  diary.belongsToMany(dreamsign, {
+    as: "dreamsign_id_dreamsigns",
+    through: diary_tag_dreamsign,
+    foreignKey: "diary_id",
+    otherKey: "dreamsign_id",
+  });
+  dreamsign.belongsToMany(diary, {
+    as: "diary_id_diaries",
+    through: diary_tag_dreamsign,
+    foreignKey: "dreamsign_id",
+    otherKey: "diary_id",
+  });
+  post.belongsTo(board, { as: "board", foreignKey: "board_id" });
+  board.hasMany(post, { as: "posts", foreignKey: "board_id" });
+  diary_tag_dreamsign.belongsTo(diary, { as: "diary", foreignKey: "diary_id" });
+  diary.hasMany(diary_tag_dreamsign, {
+    as: "diary_tag_dreamsigns",
+    foreignKey: "diary_id",
+  });
+  diary_tag_dreamsign.belongsTo(dreamsign, {
+    as: "dreamsign",
+    foreignKey: "dreamsign_id",
+  });
+  dreamsign.hasMany(diary_tag_dreamsign, {
+    as: "diary_tag_dreamsigns",
+    foreignKey: "dreamsign_id",
+  });
+  bookmark.belongsTo(post, { as: "post", foreignKey: "post_id" });
+  post.hasMany(bookmark, { as: "bookmarks", foreignKey: "post_id" });
+  heart.belongsTo(post, { as: "post", foreignKey: "post_id" });
+  post.hasMany(heart, { as: "hearts", foreignKey: "post_id" });
+  post_hit.belongsTo(post, { as: "post", foreignKey: "post_id" });
+  post.hasOne(post_hit, { as: "post_hit", foreignKey: "post_id" });
+  report.belongsTo(report_reason, {
+    as: "report_reason",
+    foreignKey: "report_reason_id",
+  });
+  report_reason.hasMany(report, {
+    as: "reports",
+    foreignKey: "report_reason_id",
+  });
+  diary.belongsTo(sleep, { as: "sleep", foreignKey: "sleep_id" });
+  sleep.hasMany(diary, { as: "diaries", foreignKey: "sleep_id" });
+  bookmark.belongsTo(user, { as: "user", foreignKey: "user_id" });
+  user.hasMany(bookmark, { as: "bookmarks", foreignKey: "user_id" });
+  diary.belongsTo(user, { as: "user", foreignKey: "user_id" });
+  user.hasMany(diary, { as: "diaries", foreignKey: "user_id" });
+  heart.belongsTo(user, { as: "user", foreignKey: "user_id" });
+  user.hasMany(heart, { as: "hearts", foreignKey: "user_id" });
+  post.belongsTo(user, { as: "user", foreignKey: "user_id" });
+  user.hasMany(post, { as: "posts", foreignKey: "user_id" });
+  report.belongsTo(user, {
+    as: "reported_user",
+    foreignKey: "reported_user_id",
+  });
+  user.hasMany(report, { as: "reports", foreignKey: "reported_user_id" });
+  report.belongsTo(user, { as: "report_user", foreignKey: "report_user_id" });
+  user.hasMany(report, {
+    as: "report_user_reports",
+    foreignKey: "report_user_id",
+  });
+  sleep.belongsTo(user, { as: "user", foreignKey: "user_id" });
+  user.hasMany(sleep, { as: "sleeps", foreignKey: "user_id" });
 
   return {
     board,

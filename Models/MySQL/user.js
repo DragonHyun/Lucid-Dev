@@ -1,28 +1,39 @@
-const Sequelize = require("sequelize");
-module.exports = function (sequelize, DataTypes) {
-  return sequelize.define(
-    "user",
+"use strict";
+const { Model, Sequelize } = require("sequelize");
+module.exports = (sequelize, DataTypes) => {
+  class user extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  }
+  user.init(
     {
       id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        comment: "유저인덱스",
+        comment: "유저 인덱스",
       },
       email: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING(50),
         allowNull: false,
-        comment: "아이디",
+        comment: "이메일",
       },
       password: {
-        type: DataTypes.STRING(45),
+        type: DataTypes.STRING(100),
         allowNull: false,
         comment: "비밀번호",
       },
       nickname: {
-        type: DataTypes.STRING(45),
+        type: DataTypes.STRING(20),
         allowNull: false,
+        comment: "닉네임",
       },
       age: {
         type: DataTypes.INTEGER,
@@ -30,9 +41,9 @@ module.exports = function (sequelize, DataTypes) {
         comment: "나이",
       },
       sex: {
-        type: DataTypes.ENUM("M", "W", "U"),
+        type: DataTypes.STRING(1),
         allowNull: false,
-        comment: "성별",
+        comment: "성별 (M / W)",
       },
       profile_image_url: {
         type: DataTypes.TEXT,
@@ -42,7 +53,7 @@ module.exports = function (sequelize, DataTypes) {
       created_at: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: Sequelize.Sequelize.literal("CURRENT_TIMESTAMP"),
+        defaultValue: Sequelize.literal("CURRNET_TIMESTAMP"),
         comment: "생성시점",
       },
       updated_at: {
@@ -58,17 +69,11 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
+      modelName: "user",
       tableName: "user",
       hasTrigger: true,
       timestamps: false,
-      indexes: [
-        {
-          name: "PRIMARY",
-          unique: true,
-          using: "BTREE",
-          fields: [{ name: "id" }],
-        },
-      ],
     }
   );
+  return user;
 };

@@ -1,7 +1,17 @@
-const Sequelize = require("sequelize");
-module.exports = function (sequelize, DataTypes) {
-  return sequelize.define(
-    "bookmark",
+"use strict";
+const { Model } = require("sequelize");
+module.exports = (sequelize, DataTypes) => {
+  class bookmark extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  }
+  bookmark.init(
     {
       id: {
         autoIncrement: true,
@@ -47,26 +57,10 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
+      modelName: "bookmark",
       tableName: "bookmark",
       timestamps: false,
-      indexes: [
-        {
-          name: "PRIMARY",
-          unique: true,
-          using: "BTREE",
-          fields: [{ name: "id" }],
-        },
-        {
-          name: "FK_bookmark_post_id_post_id",
-          using: "BTREE",
-          fields: [{ name: "post_id" }],
-        },
-        {
-          name: "FK_bookmark_user_id_user_id",
-          using: "BTREE",
-          fields: [{ name: "user_id" }],
-        },
-      ],
     }
   );
+  return bookmark;
 };
