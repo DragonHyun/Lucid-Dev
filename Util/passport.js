@@ -8,6 +8,7 @@ const LocalStrategy = require("passport-local").Strategy;
 
 const User = require("../Models/MySQL").user;
 const { secretKey, options } = require("../config/secretkey");
+const { Op } = require("sequelize");
 
 const LocalStrategyOption = {
   usernameField: "email",
@@ -16,13 +17,22 @@ const LocalStrategyOption = {
 
 const localVerify = async (email, password, done) => {
   try {
-    const user = await User.findOne({ where: { email: email } });
+    const user = await User.findOne({
+      where: {
+        email: email,
+        deleted_at: {
+          [Op.eq]: null,
+        },
+      },
+    });
+
     if (!user)
       return done(null, false, { message: "아이디가 존재 하지 않습니다." });
 
     const isSamePassword = await bcrypt.compare(password, user.password);
-    if (!isSamePassword)
+    if (!isSamePassword) {
       return done(null, false, { message: "비밀번호가 틀립니다." });
+    }
 
     return done(null, user);
   } catch (err) {

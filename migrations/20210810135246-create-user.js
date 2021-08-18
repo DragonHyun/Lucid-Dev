@@ -30,7 +30,7 @@ module.exports = {
         allowNull: false,
         comment: "나이",
       },
-      sex: {
+      gender: {
         type: Sequelize.STRING(1),
         allowNull: false,
         comment: "성별 (M / W)",

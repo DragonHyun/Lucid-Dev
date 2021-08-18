@@ -1,7 +1,9 @@
 const CustomError = require("../Util/custom-error");
 
 module.exports = (err, req, res, next) => {
-  console.log(err);
+  if (process.env.NODE_ENV != "test") {
+    console.log(err);
+  }
   const errObj = {
     req: {
       headers: req.headers,
@@ -17,8 +19,7 @@ module.exports = (err, req, res, next) => {
   };
 
   if (err instanceof CustomError) {
-    return res.status(err.code).json({
-      isSuccess: false,
+    return res.status(400).json({
       code: err.code,
       message: err.message,
     });

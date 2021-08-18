@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         comment: "나이",
       },
-      sex: {
+      gender: {
         type: DataTypes.STRING(1),
         allowNull: false,
         comment: "성별 (M / W)",
@@ -53,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
       created_at: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: Sequelize.literal("CURRNET_TIMESTAMP"),
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         comment: "생성시점",
       },
       updated_at: {

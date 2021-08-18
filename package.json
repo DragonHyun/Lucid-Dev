@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "dev:start": "fuser -k -n tcp 8000 & (sleep 3 && npm run start)",
+    "semi-test": "cross-env NODE_ENV=test mocha Test/",
     "test": "cross-env NODE_ENV=test mocha Test/",
     "pretest": "cross-env NODE_ENV=test npm run db:reset",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
@@ -31,6 +33,7 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "mocha": "^9.0.3",
+    "nodemon": "^2.0.12",
     "should": "^13.2.3",
     "supertest": "^6.1.4"
   }

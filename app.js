@@ -14,7 +14,7 @@ const routes = require("./Routes");
 
 const app = express();
 
-if (process.env.NODE_ENV !== "test") {
+if (process.env.NODE_ENV != "test") {
   app.use(logger("dev"));
 }
 app.use(express.json());

@@ -1,4 +1,6 @@
 "use strict";
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -11,17 +13,35 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
+    const hashPassword = await bcrypt.hash(
+      "abcd1234!",
+      await bcrypt.genSalt(saltRounds)
+    );
 
     await queryInterface.bulkInsert("user", [
       {
-        id: 1,
-        email: "abcd@naver.com",
-        password: "abcd",
-        nickname: "dyd",
+        email: "duplicate_email@gmail.com",
+        password: hashPassword,
+        nickname: "duplicate_nickname",
         age: 25,
-        sex: "M",
+        gender: "M",
         profile_image_url: "profile_iamge.com",
-        created_at: new Date(),
+      },
+      {
+        email: "test_update_user@gmail.com",
+        password: hashPassword,
+        nickname: "before_update_nickname",
+        age: 20,
+        gender: "F",
+        profile_image_url: "before_update_profile_image.com",
+      },
+      {
+        email: "test_delete_user@gmail.com",
+        password: hashPassword,
+        nickname: "test_delete_user",
+        age: 21,
+        gender: "F",
+        profile_image_url: "profile_image.com",
       },
     ]);
   },
