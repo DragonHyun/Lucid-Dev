@@ -1,5 +1,4 @@
 const bcrypt = require("bcrypt");
-const { token } = require("morgan");
 
 const should = require("should");
 const request = require("supertest");
@@ -309,7 +308,7 @@ describe("User 관련 Test", () => {
           .delete("/user")
           .set({ Authorization: `Bearer ${jwt}` })
           .expect(200)
-          .end(() => {
+          .then(() => {
             request(app)
               .post("/user/signin")
               .send({

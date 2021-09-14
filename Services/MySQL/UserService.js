@@ -44,7 +44,9 @@ const userService = {
 
   allUser: async () => {
     try {
-      const allUser = await User.findAll();
+      const allUser = await User.findAll({
+        where: { deleted_at: null },
+      });
 
       return allUser;
     } catch (err) {
@@ -73,7 +75,7 @@ const userService = {
     }
   },
 
-  modifyUserPassword: async (user_id, password) => {
+  modifyUserPassword: async (userID, password) => {
     try {
       const salt = await bcrypt.genSalt(saltRounds);
       const hashPassword = await bcrypt.hash(password, salt);
@@ -81,7 +83,7 @@ const userService = {
       await User.update(
         { password: hashPassword },
         {
-          where: { id: user_id },
+          where: { id: userID },
         }
       );
 
@@ -91,12 +93,12 @@ const userService = {
     }
   },
 
-  modifyUserNickname: async (user_id, nickname) => {
+  modifyUserNickname: async (userID, nickname) => {
     try {
       await User.update(
         { nickname: nickname },
         {
-          where: { id: user_id },
+          where: { id: userID },
         }
       );
 
@@ -106,12 +108,12 @@ const userService = {
     }
   },
 
-  modifyUserProfileImageUrl: async (user_id, profile_image_url) => {
+  modifyUserProfileImageUrl: async (userID, profileImageUrl) => {
     try {
       await User.update(
-        { profile_image_url: profile_image_url },
+        { profile_image_url: profileImageUrl },
         {
-          where: { id: user_id },
+          where: { id: userID },
         }
       );
 
@@ -121,9 +123,9 @@ const userService = {
     }
   },
 
-  deleteUser: async (user_id) => {
+  deleteUser: async (userID) => {
     try {
-      await User.update({ deleted_at: new Date() }, { where: { id: user_id } });
+      await User.update({ deleted_at: new Date() }, { where: { id: userID } });
 
       return true;
     } catch (err) {

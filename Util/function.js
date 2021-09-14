@@ -13,4 +13,19 @@ module.exports = {
       next(err);
     }
   },
+
+  responseForm: (res, code, message, result) => {
+    if (result === undefined) {
+      return res.status(code).json({
+        code: code,
+        message: message,
+      });
+    } else {
+      return res.status(code).json({
+        code: code,
+        message: message,
+        result: result,
+      });
+    }
+  },
 };

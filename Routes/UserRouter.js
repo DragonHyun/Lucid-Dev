@@ -4,7 +4,7 @@ const passport = require("passport");
 
 const { UserController } = require("../Controllers");
 
-router.post("/unique", UserController.checkUnique);
+router.post("/unique", UserController.checkUserPropertyUnique);
 
 router.get("/", UserController.allUser);
 

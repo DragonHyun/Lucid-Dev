@@ -9,21 +9,21 @@ module.exports = {
         primaryKey: true,
         comment: "게시글인덱스",
       },
-      board_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        comment: "게시판인덱스",
-        references: {
-          model: "board",
-          key: "id",
-        },
-      },
       user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         comment: "유저인덱스",
         references: {
           model: "user",
+          key: "id",
+        },
+      },
+      board_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        comment: "게시판인덱스",
+        references: {
+          model: "board",
           key: "id",
         },
       },

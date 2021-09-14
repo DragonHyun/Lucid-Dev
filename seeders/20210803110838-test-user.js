@@ -43,6 +43,14 @@ module.exports = {
         gender: "F",
         profile_image_url: "profile_image.com",
       },
+      {
+        email: "test_about_post_user@gmail.com",
+        password: hashPassword,
+        nickname: "test_about_post_user",
+        age: 22,
+        gender: "M",
+        profile_image_url: "profile_image.com",
+      },
     ]);
   },
 

@@ -6,7 +6,7 @@ const CustomError = require("../Util/custom-error");
 const { isPropertyDefined } = require("../Util/function");
 
 const UserController = {
-  checkUnique: async (req, res, next) => {
+  checkUserPropertyUnique: async (req, res, next) => {
     const { type, value } = req.body;
     let isUnique;
     try {
@@ -115,7 +115,7 @@ const UserController = {
 
   modifyUser: async (req, res, next) => {
     const { type, value } = req.body;
-    const user_id = req.user.id;
+    const userID = req.user.id;
 
     try {
       if (!(await isPropertyDefined(type, value))) {
@@ -124,17 +124,17 @@ const UserController = {
 
       switch (type) {
         case "password":
-          await UserService.modifyUserPassword(user_id, value);
+          await UserService.modifyUserPassword(userID, value);
           break;
         case "nickname":
           if (!(await UserService.isNicknameUnique(value))) {
             throw new CustomError(452, "닉네임이 중복됩니다.");
           }
 
-          await UserService.modifyUserNickname(user_id, value);
+          await UserService.modifyUserNickname(userID, value);
           break;
         case "profile_image_url":
-          await UserService.modifyUserProfileImageUrl(user_id, value);
+          await UserService.modifyUserProfileImageUrl(userID, value);
           break;
         default:
           throw new CustomError(401, "type이 올바르지 않습니다.");
@@ -150,9 +150,9 @@ const UserController = {
   },
 
   deleteUser: async (req, res, next) => {
-    const user_id = req.user.id;
+    const userID = req.user.id;
     try {
-      const isDeleted = await UserService.deleteUser(user_id);
+      const isDeleted = await UserService.deleteUser(userID);
 
       if (!isDeleted) {
         throw new CustomError(403, "회원탈퇴에 실패했습니다.");
